@@ -20,13 +20,13 @@ app.get('/', async (req, res) => {
     const results = []
     
     
-    $('#mw-pages a').each(async (index, element) => {
+    $('#mw-pages a').each((index, element) => {
       
       const link = $(element).attr('href');
       const fullLink = `https://es.wikipedia.org${link}`;
       
       
-      const pageResponse = await axios.get(fullLink);
+      const pageResponse = axios.get(fullLink);
       const pageData = pageResponse.data;
       const page$ = cheerio.load(pageData);
       
@@ -53,7 +53,7 @@ app.get('/', async (req, res) => {
     res.json(results);
   } catch (error) {
     console.error('Error durante el scraping:', error);
-    res.status(500).send('Error durante el scraping');
+    
   }
 });
 
